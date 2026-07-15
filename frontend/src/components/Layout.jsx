@@ -51,6 +51,12 @@ function Layout() {
   return (
     <div className="app-shell">
 
+        {/* ======== 动态背景层 ======== */}
+        <div className="animated-bg" />
+        <div className="tech-grid" />
+        <div className="noise-overlay" />
+        <div className="particle-field" />
+
       {/* ======== 顶栏 ======== */}
       <header className="header">
         <div className="header-left">

@@ -1,0 +1,344 @@
+/* ============================================
+   如意设计系统 — Design Tokens
+   如意国风科技蓝 · Ruyi National-Style Tech Blue
+   ============================================ */
+
+:root {
+  /* ============================================
+     1. COLOR SYSTEM — Full Palette
+     ============================================ */
+
+  /* ---- Core Brand Colors ---- */
+  --ink-deep:        #050a16;   /* 深墨 — deepest background */
+  --ink-dark:        #070d1a;   /* 墨色 — primary dark surface */
+  --ink-base:        #090f20;   /* 墨底 — base background */
+  --ink-surface:     #0d162b;   /* 墨面 — elevated surface */
+  --ink-card:        #111d37;   /* 墨卡 — card background */
+  --ink-hover:       #162544;   /* 墨悬 — hover state */
+  --ink-border:      #1a2a45;   /* 墨线 — interactive border */
+
+  /* ---- Tech Blue (主强调 Primary Accent) ---- */
+  --blue-50:         #eff6ff;
+  --blue-100:        #dbeafe;
+  --blue-200:        #bfdbfe;
+  --blue-300:        #93c5fd;
+  --blue-400:        #60a5fa;
+  --blue-500:        #3b82f6;   /* base accent */
+  --blue-600:        #2563eb;
+  --blue-700:        #1d4ed8;
+  --blue-800:        #1e40af;
+  --blue-900:        #1e3a8a;
+
+  /* ---- Ruyi Gold (点缀 Accent Gold) ---- */
+  --gold-50:         #fdf8ed;
+  --gold-100:        #f9edcc;
+  --gold-200:        #f3db99;
+  --gold-300:        #ecc866;
+  --gold-400:        #e5b840;
+  --gold-500:        #c9a24e;   /* base gold */
+  --gold-600:        #b8913e;
+  --gold-700:        #937130;
+  --gold-800:        #6e5428;
+  --gold-900:        #4a3920;
+
+  /* ---- Semantic Colors ---- */
+  --green-400:       #4ade80;
+  --green-500:       #22c55e;
+  --green-600:       #16a34a;
+  --green-900:       #14532d;
+
+  --amber-400:       #fbbf24;
+  --amber-500:       #f59e0b;
+  --amber-600:       #d97706;
+  --amber-900:       #78350f;
+
+  --red-400:         #f87171;
+  --red-500:         #ef4444;
+  --red-600:         #dc2626;
+  --red-900:         #7f1d1d;
+
+  --indigo-400:      #818cf8;
+  --indigo-500:      #6366f1;
+  --indigo-600:      #4f46e5;
+  --indigo-900:      #312e81;
+
+  /* ---- Semantic Token Aliases ---- */
+  --success:         var(--green-500);
+  --success-soft:    rgba(34, 197, 94, 0.10);
+  --success-border:  rgba(34, 197, 94, 0.25);
+  --success-glow:    rgba(34, 197, 94, 0.40);
+
+  --warning:         var(--amber-500);
+  --warning-soft:    rgba(245, 158, 11, 0.10);
+  --warning-border:  rgba(245, 158, 11, 0.25);
+  --warning-glow:    rgba(245, 158, 11, 0.40);
+
+  --danger:          var(--red-500);
+  --danger-soft:     rgba(239, 68, 68, 0.10);
+  --danger-border:   rgba(239, 68, 68, 0.25);
+  --danger-glow:     rgba(239, 68, 68, 0.40);
+
+  --info:            var(--indigo-500);
+  --info-soft:       rgba(99, 102, 241, 0.10);
+  --info-border:     rgba(99, 102, 241, 0.25);
+  --info-glow:       rgba(99, 102, 241, 0.40);
+
+  /* ---- Accent Shorthand ---- */
+  --accent:          var(--blue-500);
+  --accent-light:    var(--blue-400);
+  --accent-dark:     var(--blue-600);
+  --accent-soft:     rgba(59, 130, 246, 0.10);
+  --accent-border:   rgba(59, 130, 246, 0.25);
+  --accent-glow:     rgba(59, 130, 246, 0.35);
+  --accent-glow-intense: rgba(59, 130, 246, 0.55);
+
+  --gold:            var(--gold-500);
+  --gold-light:      var(--gold-400);
+  --gold-dark:       var(--gold-600);
+  --gold-soft:       rgba(201, 162, 78, 0.10);
+  --gold-border:     rgba(201, 162, 78, 0.25);
+  --gold-glow:       rgba(201, 162, 78, 0.35);
+
+  /* ---- Surface / Background Tokens ---- */
+  --bg-deep:         var(--ink-deep);
+  --bg-base:         var(--ink-base);
+  --bg-surface:      var(--ink-surface);
+  --bg-card:         var(--ink-card);
+  --bg-hover:        var(--ink-hover);
+  --bg-elevated:     rgba(17, 29, 55, 0.85);  /* glass elevated */
+
+  /* ---- Border Tokens ---- */
+  --border-subtle:   rgba(26, 42, 69, 0.50);
+  --border-normal:   rgba(30, 48, 80, 0.65);
+  --border-strong:   rgba(45, 65, 105, 0.75);
+  --border-glow:     rgba(59, 130, 246, 0.30);
+  --border-gold:     rgba(201, 162, 78, 0.30);
+  --border-glass:    rgba(255, 255, 255, 0.06);
+
+  /* ---- Text Tokens ---- */
+  --text-primary:    #e4ebf5;
+  --text-secondary:  #8695b0;
+  --text-muted:      #546280;
+  --text-disabled:   #3a4560;
+  --text-inverse:    #050a16;
+  --text-accent:     var(--blue-400);
+  --text-gold:       var(--gold-400);
+
+  /* ---- Glass Overlay Colors ---- */
+  --glass-bg:        rgba(13, 22, 43, 0.70);
+  --glass-bg-light:  rgba(17, 29, 55, 0.55);
+  --glass-bg-heavy:  rgba(9, 15, 32, 0.88);
+  --glass-border:    rgba(255, 255, 255, 0.055);
+  --glass-highlight: rgba(255, 255, 255, 0.03);
+
+  /* ============================================
+     2. TYPOGRAPHY SCALE
+     ============================================ */
+
+  --font-sans:       -apple-system, BlinkMacSystemFont, "Microsoft YaHei",
+                     "PingFang SC", "Noto Sans SC", "HarmonyOS Sans SC",
+                     "Source Han Sans SC", sans-serif;
+  --font-mono:       "JetBrains Mono", "Fira Code", "Cascadia Code",
+                     "SF Mono", "Consolas", monospace;
+  --font-display:    "Georgia", "Noto Serif SC", "Source Han Serif SC", serif;
+
+  /* Modular type scale — base 15px (major third: 1.250) */
+  --text-xs:         0.70rem;   /* 10.5px */
+  --text-sm:         0.80rem;   /* 12px */
+  --text-base:       0.93rem;   /* 14px */
+  --text-md:         1.00rem;   /* 15px */
+  --text-lg:         1.13rem;   /* 17px */
+  --text-xl:         1.33rem;   /* 20px */
+  --text-2xl:        1.60rem;   /* 24px */
+  --text-3xl:        2.00rem;   /* 30px */
+  --text-4xl:        2.50rem;   /* 37.5px */
+
+  --leading-tight:   1.20;
+  --leading-snug:    1.35;
+  --leading-normal:  1.55;
+  --leading-relaxed: 1.70;
+
+  --font-weight-light:    300;
+  --font-weight-normal:   400;
+  --font-weight-medium:   500;
+  --font-weight-semibold: 600;
+  --font-weight-bold:     700;
+  --font-weight-extrabold:800;
+
+  --tracking-tight:   -0.02em;
+  --tracking-normal:   0;
+  --tracking-wide:     0.02em;
+  --tracking-wider:    0.05em;
+  --tracking-widest:   0.10em;
+
+  /* ============================================
+     3. SPACING SCALE (4px base)
+     ============================================ */
+
+  --space-0:          0;
+  --space-px:         1px;
+  --space-0_5:        2px;
+  --space-1:          4px;
+  --space-1_5:        6px;
+  --space-2:          8px;
+  --space-2_5:        10px;
+  --space-3:          12px;
+  --space-3_5:        14px;
+  --space-4:          16px;
+  --space-5:          20px;
+  --space-6:          24px;
+  --space-7:          28px;
+  --space-8:          32px;
+  --space-9:          36px;
+  --space-10:         40px;
+  --space-11:         44px;
+  --space-12:         48px;
+  --space-14:         56px;
+  --space-16:         64px;
+  --space-20:         80px;
+  --space-24:         96px;
+
+  /* ============================================
+     4. BORDER RADIUS SYSTEM
+     ============================================ */
+
+  --radius-none:      0;
+  --radius-xs:        3px;
+  --radius-sm:        6px;
+  --radius-md:        10px;
+  --radius-lg:        16px;
+  --radius-xl:        24px;
+  --radius-2xl:       32px;
+  --radius-full:      9999px;
+
+  /* ============================================
+     5. SHADOW / ELEVATION SYSTEM
+     ============================================ */
+
+  /* Level 0 — Flat (no shadow) */
+  --shadow-none:      0 0 0 0 transparent;
+
+  /* Level 1 — Subtle Card */
+  --shadow-xs:        0 1px 2px rgba(0, 0, 0, 0.30);
+
+  /* Level 2 — Standard Card */
+  --shadow-sm:        0 1px 3px rgba(0, 0, 0, 0.40),
+                      0 0 0 1px var(--border-subtle);
+
+  /* Level 3 — Elevated (hover state) */
+  --shadow-md:        0 4px 12px rgba(0, 0, 0, 0.45),
+                      0 0 0 1px var(--border-normal),
+                      0 0 20px rgba(59, 130, 246, 0.08);
+
+  /* Level 4 — Floating (dropdowns, tooltips) */
+  --shadow-lg:        0 8px 24px rgba(0, 0, 0, 0.55),
+                      0 0 40px rgba(0, 0, 0, 0.20),
+                      0 0 0 1px var(--border-strong);
+
+  /* Level 5 — Modal / Dialog */
+  --shadow-xl:        0 16px 48px rgba(0, 0, 0, 0.65),
+                      0 0 80px rgba(0, 0, 0, 0.30),
+                      0 0 0 1px var(--border-glow);
+
+  /* Glow shadows */
+  --shadow-glow-sm:   0 0 12px var(--accent-glow);
+  --shadow-glow-md:   0 0 24px var(--accent-glow),
+                      0 0 0 1px var(--accent);
+  --shadow-glow-lg:   0 0 40px var(--accent-glow-intense),
+                      0 0 0 2px rgba(59, 130, 246, 0.40);
+
+  --shadow-gold-sm:   0 0 12px var(--gold-glow);
+  --shadow-gold-md:   0 0 24px var(--gold-glow),
+                      0 0 0 1px var(--gold);
+
+  /* Inner shadows (for pressed states, inset glows) */
+  --shadow-inset:     inset 0 2px 4px rgba(0, 0, 0, 0.30);
+
+  /* ============================================
+     6. ANIMATION — Durations
+     ============================================ */
+
+  --duration-instant:   50ms;
+  --duration-fast:     120ms;
+  --duration-normal:   200ms;
+  --duration-slow:     300ms;
+  --duration-lazy:     500ms;
+  --duration-glacial:  800ms;
+
+  /* ============================================
+     7. ANIMATION — Easing Curves
+     ============================================ */
+
+  /* Standard — entry/exit, color changes */
+  --ease-out:          cubic-bezier(0.16, 1, 0.3, 1);       /* emphasize out */
+  --ease-in:           cubic-bezier(0.4, 0, 1, 1);          /* emphasize in */
+  --ease-in-out:       cubic-bezier(0.65, 0, 0.35, 1);      /* symmetric */
+  --ease-default:      cubic-bezier(0.4, 0, 0.2, 1);        /* Material standard */
+
+  /* Expressive — attention-grabbing */
+  --ease-spring:       cubic-bezier(0.34, 1.56, 0.64, 1);   /* spring bounce */
+  --ease-anticipate:   cubic-bezier(0.68, -0.55, 0.27, 1.55); /* anticipatory */
+  --ease-smooth:       cubic-bezier(0.22, 1, 0.36, 1);      /* buttery smooth */
+
+  /* Bouncy / playful */
+  --ease-bounce-in:    cubic-bezier(0.70, 0.10, 0.85, 0.10);
+  --ease-bounce-out:   cubic-bezier(0.10, 0.85, 0.15, 0.95);
+
+  /* ============================================
+     8. Z-INDEX SCALE
+     ============================================ */
+
+  --z-base:            0;
+  --z-content:         1;
+  --z-dropdown:        50;
+  --z-sticky:          80;
+  --z-sidebar:         90;
+  --z-header:          100;
+  --z-overlay:         200;
+  --z-modal:           300;
+  --z-toast:           400;
+  --z-tooltip:         500;
+  --z-spotlight:       600;
+
+  /* ============================================
+     9. LAYOUT DIMENSIONS
+     ============================================ */
+
+  --header-h:          60px;
+  --sidebar-w:         240px;
+  --sidebar-collapsed: 64px;
+  --content-max-w:     1280px;
+
+  /* ============================================
+     10. GLASS BLUR VALUES
+     ============================================ */
+
+  --blur-subtle:       4px;
+  --blur-medium:       8px;
+  --blur-strong:       16px;
+  --blur-heavy:        24px;
+  --blur-extreme:      40px;
+
+  /* ============================================
+     11. ANIMATED GRADIENT BORDER — @property registration
+     ============================================ */
+}
+
+/* Register custom properties for animated conic gradient borders */
+@property --border-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@property --shimmer-offset {
+  syntax: '<percentage>';
+  initial-value: -120%;
+  inherits: false;
+}
+
+@property --spotlight-opacity {
+  syntax: '<number>';
+  initial-value: 0;
+  inherits: false;
+}

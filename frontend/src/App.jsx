@@ -1,6 +1,10 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 import Layout from './components/Layout'
-import Dashboard from './pages/Dashboard'
+import Dashboard from './features/dashboard/Dashboard'
+import Users from './features/users/Users'
+import DataManagement from './features/data/DataManagement'
+import Settings from './features/settings/Settings'
+import './App.css'
 
 function App() {
   return (
@@ -8,9 +12,9 @@ function App() {
       <Route path="/" element={<Layout />}>
         <Route index element={<Navigate to="/dashboard" replace />} />
         <Route path="dashboard" element={<Dashboard />} />
-        <Route path="users" element={<Dashboard />} />
-        <Route path="data" element={<Dashboard />} />
-        <Route path="settings" element={<Dashboard />} />
+        <Route path="users" element={<Users />} />
+        <Route path="data" element={<DataManagement />} />
+        <Route path="settings" element={<Settings />} />
       </Route>
     </Routes>
   )

@@ -1,58 +1,25 @@
 /* ============================================
    如意管理系统 — 如意国风科技蓝 主题
+   设计系统入口 — 按层级导入
+   ============================================ */
+
+/* Layer 0: Design tokens (CSS custom properties) */
+@import './styles/design-tokens.css';
+
+/* Layer 1: Visual effects & glass card system */
+@import './styles/effects.css';
+
+/* Layer 2: Component visual specifications */
+@import './styles/components.css';
+
+/* ============================================
+   Legacy token aliases (backward compatibility)
+   These map old variable names to the new token system
    ============================================ */
 
 :root {
-  /* ---- 底色 ---- */
-  --bg-deep:        #050a16;
-  --bg-base:        #090f20;
-  --bg-surface:     #0d162b;
-  --bg-card:        #111d37;
-  --bg-hover:       #162544;
-
-  /* ---- 边框 ---- */
-  --border-subtle:  #152040;
-  --border-normal:  #1c2d50;
-  --border-glow:    rgba(59, 130, 246, 0.25);
-
-  /* ---- 科技蓝 (主强调) ---- */
-  --accent:         #3b82f6;
-  --accent-light:   #60a5fa;
-  --accent-soft:    rgba(59, 130, 246, 0.12);
-  --accent-glow:    rgba(59, 130, 246, 0.30);
-
-  /* ---- 如意金 (点缀) ---- */
-  --gold:           #c9a24e;
-  --gold-light:     #dbb860;
-  --gold-soft:      rgba(201, 162, 78, 0.12);
-
-  /* ---- 语义色 ---- */
-  --success:        #22c55e;
-  --warning:        #f59e0b;
-  --danger:         #ef4444;
-  --info:           #6366f1;
-
-  /* ---- 文字 ---- */
-  --text-primary:   #e4ebf5;
-  --text-secondary: #8695b0;
-  --text-muted:     #546280;
-
-  /* ---- 尺寸 ---- */
-  --header-h:       60px;
-  --sidebar-w:      240px;
-
-  /* ---- 圆角 ---- */
-  --radius-sm:      6px;
-  --radius-md:      10px;
-  --radius-lg:      16px;
-
-  /* ---- 阴影 ---- */
-  --shadow-card:    0 1px 3px rgba(0,0,0,0.4), 0 0 0 1px var(--border-subtle);
-  --shadow-glow:    0 0 24px var(--accent-glow), 0 0 0 1px var(--accent);
-
   /* ---- 字体 ---- */
   --font-ui:        -apple-system, BlinkMacSystemFont, "Microsoft YaHei", "PingFang SC", "Noto Sans SC", sans-serif;
-  --font-mono:      "JetBrains Mono", "Fira Code", "Cascadia Code", monospace;
 
   /* ---- 过渡 ---- */
   --ease:           cubic-bezier(0.4, 0, 0.2, 1);

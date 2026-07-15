@@ -1,0 +1,862 @@
+/* ============================================
+   如意设计系统 — Glass Cards & Visual Effects
+   ============================================ */
+
+/* ============================================
+   PART 1: BACKGROUND TREATMENT
+   ============================================ */
+
+/* ---- 1a. Deep Space Animated Gradient ---- */
+.animated-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* Layer 1: Slow rotating gradient orb */
+.animated-bg::before {
+  content: '';
+  position: absolute;
+  top: -30%;
+  left: -20%;
+  width: 140%;
+  height: 160%;
+  background:
+    radial-gradient(ellipse 45% 35% at 30% 20%,
+      rgba(59, 130, 246, 0.06) 0%,
+      transparent 60%),
+    radial-gradient(ellipse 35% 40% at 70% 60%,
+      rgba(201, 162, 78, 0.04) 0%,
+      transparent 60%),
+    radial-gradient(ellipse 30% 30% at 50% 80%,
+      rgba(99, 102, 241, 0.04) 0%,
+      transparent 60%);
+  animation: bg-orbit 20s linear infinite;
+}
+
+@keyframes bg-orbit {
+  0%   { transform: rotate(0deg) scale(1); }
+  25%  { transform: rotate(90deg) scale(1.05); }
+  50%  { transform: rotate(180deg) scale(1); }
+  75%  { transform: rotate(270deg) scale(1.05); }
+  100% { transform: rotate(360deg) scale(1); }
+}
+
+/* Layer 2: Subtle drift */
+.animated-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 20% 50% at 10% 50%,
+      rgba(59, 130, 246, 0.03) 0%,
+      transparent 70%),
+    radial-gradient(ellipse 20% 50% at 90% 50%,
+      rgba(201, 162, 78, 0.03) 0%,
+      transparent 70%);
+  animation: bg-drift 15s ease-in-out infinite alternate;
+}
+
+@keyframes bg-drift {
+  0%   { transform: translateX(-2%) translateY(-1%); }
+  100% { transform: translateX(2%) translateY(1%); }
+}
+
+/* ---- 1b. Tech Grid Overlay ---- */
+.tech-grid {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(59, 130, 246, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(59, 130, 246, 0.025) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 30%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 30%, transparent 70%);
+}
+
+/* ---- 1c. Noise / Grain Texture Overlay ---- */
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  pointer-events: none;
+  opacity: 0.035;
+  mix-blend-mode: overlay;
+}
+
+/* SVG noise filter (applied via CSS filter on a full-screen div) */
+.noise-overlay::after {
+  content: '';
+  position: absolute;
+  inset: -50%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+  animation: noise-shift 0.5s steps(5) infinite;
+}
+
+@keyframes noise-shift {
+  0%, 100% { transform: translate(0, 0); }
+  20% { transform: translate(-2px, 1px); }
+  40% { transform: translate(1px, -2px); }
+  60% { transform: translate(-1px, -1px); }
+  80% { transform: translate(2px, 2px); }
+}
+
+/* ---- 1d. Particle Field (CSS only, subtle dots) ---- */
+.particle-field {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.particle-field::before,
+.particle-field::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  animation: particle-float 12s ease-in-out infinite;
+}
+
+.particle-field::before {
+  width: 2px; height: 2px;
+  background: rgba(59, 130, 246, 0.4);
+  box-shadow:
+    120px 40px 0 rgba(59, 130, 246, 0.3),
+    300px 180px 0 rgba(59, 130, 246, 0.2),
+    500px 80px 0 rgba(59, 130, 246, 0.3),
+    700px 250px 0 rgba(59, 130, 246, 0.2),
+    900px 120px 0 rgba(59, 130, 246, 0.25),
+    1100px 300px 0 rgba(59, 130, 246, 0.15),
+    200px 350px 0 rgba(201, 162, 78, 0.2),
+    600px 400px 0 rgba(201, 162, 78, 0.15),
+    1000px 200px 0 rgba(201, 162, 78, 0.2),
+    400px 500px 0 rgba(99, 102, 241, 0.2),
+    800px 450px 0 rgba(99, 102, 241, 0.15);
+  animation: particle-float 12s ease-in-out infinite;
+}
+
+.particle-field::after {
+  width: 1px; height: 1px;
+  background: rgba(201, 162, 78, 0.35);
+  box-shadow:
+    180px 90px 0 rgba(201, 162, 78, 0.2),
+    450px 220px 0 rgba(59, 130, 246, 0.2),
+    650px 140px 0 rgba(201, 162, 78, 0.15),
+    850px 310px 0 rgba(59, 130, 246, 0.15),
+    150px 280px 0 rgba(99, 102, 241, 0.15),
+    550px 350px 0 rgba(201, 162, 78, 0.15),
+    950px 160px 0 rgba(59, 130, 246, 0.2);
+  animation: particle-float 16s ease-in-out infinite reverse;
+}
+
+@keyframes particle-float {
+  0%, 100% { transform: translateY(0); opacity: 0.6; }
+  33%  { transform: translateY(-8px); opacity: 0.9; }
+  66%  { transform: translateY(4px); opacity: 0.4; }
+}
+
+/* ============================================
+   PART 2: GLASS CARD SYSTEM (3 Tiers)
+   ============================================ */
+
+/*
+   TIER 1: Standard Glass
+   Usage: content panels, table containers, general cards
+   Features: frosted blur, translucent background, subtle border
+*/
+.glass-standard {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--blur-medium)) saturate(140%);
+  -webkit-backdrop-filter: blur(var(--blur-medium)) saturate(140%);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.30),
+    inset 0 1px 0 var(--glass-highlight);
+  transition:
+    border-color var(--duration-normal) var(--ease-default),
+    box-shadow var(--duration-normal) var(--ease-default),
+    background var(--duration-normal) var(--ease-default);
+}
+
+.glass-standard:hover {
+  border-color: rgba(255, 255, 255, 0.10);
+  background: rgba(17, 29, 55, 0.75);
+}
+
+/*
+   TIER 2: Elevated Glass
+   Usage: interactive stat cards, hover-reactive panels
+   Features: 3D depth on hover, layered shadows, micro-scale
+*/
+.glass-elevated {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--blur-medium)) saturate(140%);
+  -webkit-backdrop-filter: blur(var(--blur-medium)) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-lg);
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.25),
+    0 1px 0 var(--glass-highlight);
+  transition:
+    transform var(--duration-slow) var(--ease-out),
+    border-color var(--duration-slow) var(--ease-out),
+    box-shadow var(--duration-slow) var(--ease-out);
+  transform-style: preserve-3d;
+  perspective: 800px;
+}
+
+.glass-elevated:hover {
+  transform: translateY(-3px) rotateX(1deg);
+  border-color: var(--border-glow);
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.40),
+    0 0 30px rgba(59, 130, 246, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.glass-elevated:active {
+  transform: translateY(-1px) scale(0.995);
+  transition: transform var(--duration-fast) var(--ease-in);
+}
+
+/*
+   TIER 3: Premium Glass
+   Usage: hero cards, featured content, KPI highlights
+   Features: animated gradient border using @property,
+             spotlight cursor follow, light glint animation,
+             layered depth with subtle reflections
+*/
+.glass-premium {
+  position: relative;
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--blur-strong)) saturate(160%);
+  -webkit-backdrop-filter: blur(var(--blur-strong)) saturate(160%);
+  border-radius: var(--radius-lg);
+  box-shadow:
+    0 4px 16px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  overflow: hidden;
+  isolation: isolate;
+  transition: transform var(--duration-slow) var(--ease-out);
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+/* Animated border via conic-gradient border-image */
+.glass-premium::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  z-index: -2;
+  border-radius: calc(var(--radius-lg) + 2px);
+  background: conic-gradient(
+    from var(--border-angle),
+    transparent 0%,
+    var(--accent) 15%,
+    var(--gold) 30%,
+    transparent 40%,
+    transparent 60%,
+    var(--gold) 70%,
+    var(--accent) 85%,
+    transparent 100%
+  );
+  animation: border-rotate 6s linear infinite;
+  opacity: 0;
+  transition: opacity var(--duration-slow) var(--ease-out);
+}
+
+.glass-premium:hover::before {
+  opacity: 1;
+}
+
+/* Inner solid background to cover the hole */
+.glass-premium::after {
+  content: '';
+  position: absolute;
+  inset: 1px;
+  z-index: -1;
+  border-radius: var(--radius-lg);
+  background: var(--bg-card);
+}
+
+/* Spotlight cursor glow layer */
+.glass-premium .spotlight-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    500px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(59, 130, 246, 0.10),
+    rgba(201, 162, 78, 0.04) 30%,
+    transparent 60%
+  );
+  opacity: var(--spotlight-opacity, 0);
+  transition: opacity var(--duration-normal) var(--ease-out);
+}
+
+.glass-premium:hover .spotlight-layer {
+  opacity: 1;
+}
+
+/* Light glint animation — a subtle horizontal light sweep */
+.glass-premium .glint {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    transparent 40%,
+    rgba(255, 255, 255, 0.04) 45%,
+    rgba(255, 255, 255, 0.08) 50%,
+    rgba(255, 255, 255, 0.04) 55%,
+    transparent 60%,
+    transparent 100%
+  );
+  animation: glint-sweep 4s ease-in-out infinite;
+}
+
+@keyframes glint-sweep {
+  0%   { left: -100%; }
+  20%  { left: 120%; }
+  100% { left: 120%; }
+}
+
+/* Premium card hover state */
+.glass-premium:hover {
+  transform: translateY(-4px) rotateX(1deg) rotateY(-0.5deg);
+  box-shadow:
+    0 12px 32px rgba(0, 0, 0, 0.50),
+    0 0 50px rgba(59, 130, 246, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.glass-premium:active {
+  transform: translateY(-1px) scale(0.995);
+}
+.glass-premium > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ============================================
+   PART 3: KEY UI EFFECTS
+   ============================================ */
+
+/* ---- 3a. Animated Border Rotation Keyframe ---- */
+@keyframes border-rotate {
+  0%   { --border-angle: 0deg; }
+  100% { --border-angle: 360deg; }
+}
+
+/* ---- 3b. Universal Spotlight Card (JS-driven) ---- */
+/*
+  Usage: Add class "card-spotlight" to any card.
+  Requires JS to set --mouse-x and --mouse-y CSS variables on mousemove.
+  See: src/hooks/useSpotlight.js
+*/
+.card-spotlight {
+  position: relative;
+  overflow: hidden;
+}
+
+.card-spotlight::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  background: radial-gradient(
+    600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(59, 130, 246, 0.10),
+    rgba(201, 162, 78, 0.04) 35%,
+    transparent 60%
+  );
+  opacity: 0;
+  transition: opacity var(--duration-normal) var(--ease-out);
+}
+
+.card-spotlight:hover::before {
+  opacity: 1;
+}
+
+.card-spotlight > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---- 3c. Shimmer / Skeleton Loading States ---- */
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton {
+  background: linear-gradient(
+    105deg,
+    var(--bg-card) 0%,
+    var(--bg-card) 30%,
+    var(--bg-hover) 45%,
+    var(--bg-card) 55%,
+    var(--bg-card) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.8s ease-in-out infinite;
+  border-radius: var(--radius-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Skeleton variants */
+.skeleton-text {
+  height: 14px;
+  width: 100%;
+  border-radius: var(--radius-xs);
+}
+
+.skeleton-text-sm  { width: 60%; }
+.skeleton-text-lg  { width: 85%; }
+.skeleton-text-xl  { width: 95%; }
+
+.skeleton-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+}
+
+.skeleton-card {
+  width: 100%;
+  height: 120px;
+  border-radius: var(--radius-lg);
+}
+
+.skeleton-button {
+  width: 100px;
+  height: 38px;
+  border-radius: var(--radius-md);
+}
+
+.skeleton-row {
+  display: flex;
+  gap: var(--space-4);
+  padding: var(--space-3) 0;
+}
+
+/* Shimmer text effect (for headings / emphasis) */
+.shimmer-text {
+  background: linear-gradient(
+    105deg,
+    var(--text-primary) 0%,
+    var(--text-primary) 40%,
+    var(--accent-light) 50%,
+    var(--gold-light) 55%,
+    var(--text-primary) 60%,
+    var(--text-primary) 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+/* ---- 3d. Pulse / Breathing Indicator ---- */
+@keyframes pulse-ring {
+  0% {
+    box-shadow: 0 0 0 0 var(--accent-glow);
+    opacity: 1;
+  }
+  100% {
+    box-shadow: 0 0 0 12px transparent;
+    opacity: 0.6;
+  }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.35; transform: scale(0.85); }
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 0.5; }
+  50%      { opacity: 1; }
+}
+
+@keyframes breathe-glow {
+  0%, 100% { box-shadow: 0 0 4px currentColor, 0 0 8px currentColor; }
+  50%      { box-shadow: 0 0 8px currentColor, 0 0 20px currentColor; }
+}
+
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+.pulse-dot-success {
+  background: var(--success);
+  animation: pulse-dot 2s ease-in-out infinite,
+             breathe-glow 2s ease-in-out infinite;
+}
+
+.pulse-dot-warning {
+  background: var(--warning);
+  animation: pulse-dot 1.5s ease-in-out infinite,
+             breathe-glow 1.5s ease-in-out infinite;
+}
+
+.pulse-dot-danger {
+  background: var(--danger);
+  animation: pulse-dot 1s ease-in-out infinite,
+             breathe-glow 1s ease-in-out infinite;
+}
+
+.pulse-ring {
+  animation: pulse-ring 2s ease-out infinite;
+}
+
+/* ---- 3e. Smooth Page Transition Recommendations ----
+   For React, use CSS view transitions (Chrome 111+) or a wrapper component.
+
+   Option A: Native View Transitions API —
+     Call document.startViewTransition() then update the DOM.
+     See MDN: View Transitions API for full syntax.
+
+   Option B: CSS class-based (no View Transitions API) —
+     Add/remove .page-entering / .page-exiting classes via React state.
+   ---- */
+
+/* Page transition classes (for CSS class-based approach) */
+.page-enter {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.page-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity var(--duration-slow) var(--ease-out),
+    transform var(--duration-slow) var(--ease-spring);
+}
+
+.page-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.page-exit-active {
+  opacity: 0;
+  transform: translateY(-8px);
+  transition:
+    opacity var(--duration-fast) var(--ease-in),
+    transform var(--duration-fast) var(--ease-in);
+}
+
+/* View Transition API support */
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root) {
+    animation:
+      200ms var(--ease-in) both fade-out,
+      200ms var(--ease-in) both slide-to-top;
+  }
+
+  ::view-transition-new(root) {
+    animation:
+      350ms var(--ease-out) 80ms both fade-in,
+      350ms var(--ease-out) 80ms both slide-from-bottom;
+  }
+}
+
+@keyframes fade-out {
+  to { opacity: 0; }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes slide-to-top {
+  to { transform: translateY(-20px); }
+}
+@keyframes slide-from-bottom {
+  from { transform: translateY(20px); }
+  to { transform: translateY(0); }
+}
+
+/* ---- 3f. Count-up / Number Transition ---- */
+@keyframes count-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.count-animate {
+  animation: count-in var(--duration-slow) var(--ease-out) both;
+}
+
+/* ---- 3g. Hover Lift (reusable utility) ---- */
+.hover-lift {
+  transition: transform var(--duration-normal) var(--ease-out),
+              box-shadow var(--duration-normal) var(--ease-out);
+}
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.hover-lift-lg {
+  transition: transform var(--duration-slow) var(--ease-out),
+              box-shadow var(--duration-slow) var(--ease-out);
+}
+.hover-lift-lg:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ---- 3h. Focus ring (accessibility) ---- */
+.focus-ring:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px var(--bg-deep),
+    0 0 0 4px var(--accent);
+  border-radius: var(--radius-sm);
+}
+
+/* ---- 3i. Ripple effect (CSS only, on click) ---- */
+.ripple {
+  position: relative;
+  overflow: hidden;
+}
+.ripple::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(255,255,255,0.15) 10%, transparent 10%);
+  background-position: center;
+  background-repeat: no-repeat;
+  transform: scale(0);
+  opacity: 0;
+  transition: transform 0.5s, opacity 0.8s;
+}
+.ripple:active::after {
+  transform: scale(4);
+  opacity: 0;
+  transition: 0s;
+}
+
+/* ============================================
+   PART 4: GLASS MODAL BACKDROP
+   ============================================ */
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-overlay);
+  background: rgba(5, 10, 22, 0.75);
+  backdrop-filter: blur(var(--blur-strong)) saturate(120%);
+  -webkit-backdrop-filter: blur(var(--blur-strong)) saturate(120%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: backdrop-in var(--duration-slow) var(--ease-out) both;
+}
+
+@keyframes backdrop-in {
+  from { opacity: 0; backdrop-filter: blur(0) saturate(100%); }
+  to   { opacity: 1; backdrop-filter: blur(var(--blur-strong)) saturate(120%); }
+}
+
+.modal-panel {
+  position: relative;
+  z-index: var(--z-modal);
+  width: 90%;
+  max-width: 520px;
+  max-height: 85vh;
+  overflow-y: auto;
+  background: var(--glass-bg-heavy);
+  backdrop-filter: blur(var(--blur-heavy)) saturate(160%);
+  -webkit-backdrop-filter: blur(var(--blur-heavy)) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-xl);
+  box-shadow:
+    var(--shadow-xl),
+    0 0 60px rgba(59, 130, 246, 0.10),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  animation: modal-in var(--duration-slow) var(--ease-spring) both;
+}
+
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-5) var(--space-6);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.modal-title {
+  font-size: var(--text-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.modal-close {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  transition: all var(--duration-fast) var(--ease-default);
+}
+.modal-close:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.modal-body {
+  padding: var(--space-6);
+}
+
+.modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-6);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* ============================================
+   PART 5: TOOLTIP / POPOVER
+   ============================================ */
+
+.tooltip {
+  position: absolute;
+  z-index: var(--z-tooltip);
+  padding: var(--space-1_5) var(--space-3);
+  background: var(--glass-bg-heavy);
+  backdrop-filter: blur(var(--blur-medium)) saturate(140%);
+  -webkit-backdrop-filter: blur(var(--blur-medium)) saturate(140%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-lg);
+  white-space: nowrap;
+  pointer-events: none;
+  animation: tooltip-in var(--duration-fast) var(--ease-out) both;
+}
+
+@keyframes tooltip-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================================
+   PART 6: DIVIDER ORNAMENTS
+   ============================================ */
+
+/* Gold diamond divider (Chinese aesthetic) */
+.ornament-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  padding: var(--space-2) 0;
+  color: var(--text-muted);
+  font-size: var(--text-xs);
+}
+
+.ornament-divider::before,
+.ornament-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--border-subtle) 30%,
+    var(--border-normal) 50%,
+    var(--border-subtle) 70%,
+    transparent
+  );
+}
+
+.ornament-divider::before {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--border-subtle) 30%,
+    var(--border-normal) 50%,
+    var(--border-subtle) 70%,
+    transparent
+  );
+}
+
+.ornament-divider .diamond {
+  color: var(--gold);
+  opacity: 0.5;
+  font-size: 0.5rem;
+}
+
+/* ============================================
+   PART 7: SCROLLBAR (Refined)
+   ============================================ */
+
+.glass-scrollbar::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+.glass-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.glass-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--border-normal);
+  border-radius: var(--radius-full);
+  transition: background var(--duration-fast) var(--ease-default);
+}
+.glass-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* Firefox */
+.glass-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-normal) transparent;
+}
